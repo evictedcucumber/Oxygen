@@ -44,6 +44,10 @@
 
 
 
+- (Auto) Update changelog
+
+
+
 ### Build
 
 #### Docs
