@@ -36,6 +36,14 @@
 
 
 
+- (Auto) Update changelog
+
+
+
+- Update grammer formatting
+
+
+
 ### Build
 
 #### Docs
