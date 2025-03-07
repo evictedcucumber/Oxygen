@@ -1,0 +1,48 @@
+[changelog]
+header = "# ArenaAllocator Changelog\n"
+
+body = """
+{% if version %}\
+    ## {{ version | trim_start_matches(pat="release-") }} - {{ timestamp | date(format="%d %B %Y")}}\
+{% else %}
+    ## Unreleased
+{% endif %}
+
+{% for group, commits in commits | group_by(attribute="group") %}
+    ### {{ group | striptags | trim | upper_first }}
+    {% for scope, commits in commits | group_by(attribute="scope") %}
+        #### {{ scope | striptags | trim | upper_first }}
+        {% for commit in commits %}
+            - {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message | upper_first }}
+        {% endfor %}
+    {% endfor %}
+    {% for commit in commits %}
+        {% if not commit.scope %}
+            - {% if commit.breaking %}[**breaking**] {% endif %}{{ commit.message | upper_first }}
+        {% endif %}
+    {% endfor %}
+{% endfor %}\n
+"""
+
+footer = ""
+
+trim = true
+
+postprocessors = []
+
+[git]
+conventional_commits = true
+filter_unconventional = true
+split_commits = false
+commit_preprocessors = []
+commit_parsers = [
+  { message = "^feat", group = "<!-- 0 -->Features" },
+  { message = "^doc", group = "<!-- 1 -->Documentation" },
+  { message = "^build", group = "<!-- 2 -->Build"},
+  { message = "^chore", group = "<!-- 3 -->Chore" },
+  { message = "^ci", group = "<!-- 4 -->CI/CD"},
+  { message = "^revert", group = "<!-- 5 -->Reverts"},
+]
+filter_commits = false
+topo_order = false
+sort_commits = "oldest"
