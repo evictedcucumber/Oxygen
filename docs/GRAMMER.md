@@ -1,6 +1,6 @@
 # Oxygen Language Grammer
 
-[Program]-> [Statement]*
+> [Program]-> [Statement]*
 
 > [Statement] ->
 > > exit([Term]);
